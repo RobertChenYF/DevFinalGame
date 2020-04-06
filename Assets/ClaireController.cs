@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClaireController : MonoBehaviour
 {
+    public static ClaireController me;
 
     [Header("Fundamnetal Components")]
     //CharacterController charCont;
@@ -11,6 +12,7 @@ public class ClaireController : MonoBehaviour
     CapsuleCollider capsCol;
     public Camera cam;
     public GameObject camDir;
+    public GameObject model;
 
     [Header("Inputs")]
     public float horizontalInput;
@@ -67,6 +69,11 @@ public class ClaireController : MonoBehaviour
     public int initTimer;
     public int timeToGlideTimer;
     public int timeToGlideLimit;
+
+    void Awake()
+    {
+        me = this;
+    }
 
     void Start()
     {
@@ -148,7 +155,8 @@ public class ClaireController : MonoBehaviour
         }
 
         VerticalMovement();
-        Velocity();        
+        Velocity();
+        ModelRotation();
     }
 
     void CheckMainInput()
@@ -280,5 +288,10 @@ public class ClaireController : MonoBehaviour
         velocity.y = verticalSpeed;
 
         rb.MovePosition(transform.position + velocity);
+    }
+
+    void ModelRotation()
+    {
+        model.transform.LookAt(transform.position + velocity);
     }
 }
