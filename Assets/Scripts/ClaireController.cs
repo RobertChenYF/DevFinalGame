@@ -33,6 +33,8 @@ public class ClaireController : MonoBehaviour
     public Vector3 velocity;
     public Vector3 floorOffset;
 
+    public float rotateSpeed;
+
     [Header("AirMovement - Generic Stuff")]
     public bool initJump;
     public float verticalSpeed;
@@ -87,6 +89,15 @@ public class ClaireController : MonoBehaviour
     {
         GetCameraDir();
         Inputs();
+
+        //rotate character model
+        // transform.rotation = Quaternion.Euler(0f,camDir.transform.rotation.eulerAngles.y,0f);
+        if (horizontalInput!=0 || verticalInput != 0)
+        {
+        Quaternion newRotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, velocity.z));
+        model.transform.rotation = Quaternion.Slerp(model.transform.rotation,newRotation,rotateSpeed*Time.deltaTime);
+        }
+        
     }
 
     void GetCameraDir()
@@ -292,6 +303,6 @@ public class ClaireController : MonoBehaviour
 
     void ModelRotation()
     {
-        model.transform.LookAt(transform.position + velocity);
+     //   model.transform.LookAt(transform.position + velocity);
     }
 }
