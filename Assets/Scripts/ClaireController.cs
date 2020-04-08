@@ -72,6 +72,8 @@ public class ClaireController : MonoBehaviour
     public int timeToGlideTimer;
     public int timeToGlideLimit;
 
+
+    public static float ClaireSpeed;
     void Awake()
     {
         me = this;
@@ -90,6 +92,10 @@ public class ClaireController : MonoBehaviour
         GetCameraDir();
         Inputs();
 
+       //Debug.Log("Speed: " + Mathf.Sqrt(velocity.x*velocity.x + velocity.z*velocity.z));
+
+        ClaireSpeed = Mathf.Sqrt(verticalInput * verticalInput + horizontalInput * horizontalInput);
+       
         //rotate character model
         // transform.rotation = Quaternion.Euler(0f,camDir.transform.rotation.eulerAngles.y,0f);
         if (horizontalInput!=0 || verticalInput != 0)
