@@ -109,7 +109,7 @@ public class ClaireController : MonoBehaviour
         ClaireSpeed = Mathf.Sqrt(verticalInput * verticalInput + horizontalInput * horizontalInput);
        
         //rotate character model
-        // transform.rotation = Quaternion.Euler(0f,camDir.transform.rotation.eulerAngles.y,0f);
+        
         if (horizontalInput!=0 || verticalInput != 0)
         {
         Quaternion newRotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, velocity.z));
