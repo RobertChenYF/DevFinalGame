@@ -18,16 +18,16 @@ public class ClaireController : MonoBehaviour
     public float verticalInput;
     public bool mainInput; //Main Input is for when A is pressed
     public bool interactInput; //If A is pressed for an interaction, this is turned on
-    public bool jumpInput; //If A is pressed to jump, this is turned on
+    public static bool jumpInput; //If A is pressed to jump, this is turned on
     public bool climbInput;
     public bool glideInput; //If A is pressed to glide, this is turned on
 
     [Header("Important Charecter Bools")]
-    public bool onGround;
+    public static bool onGround;
     public bool canClimb;
 
     [Header("Important Charecter Ints")]
-    public float goldenFeathers;
+    public static float goldenFeathers;
     public int goldenFeathersMax;
 
 
@@ -85,7 +85,8 @@ public class ClaireController : MonoBehaviour
     public int timeToGlideTimer; //A timer that tracks when the player can start gliding
     public int timeToGlideLimit;//If timeToGlideTimer is bigger than limit, you can glide
 
-
+    //variable added by Robert
+    public float rotateSpeed;
     public static float ClaireSpeed;
     void Awake()
     {
@@ -178,7 +179,13 @@ public class ClaireController : MonoBehaviour
 
         if (onGround)
         {
+            
+            if (goldenFeathers != goldenFeathersMax)
+            { 
+            model.GetComponent<ClaireAnimatorController>().ChangeToRed(); // change cape color to red when on the ground
             goldenFeathers = goldenFeathersMax; //Currently sets goldenFeaters back to its max if youre on the ground. Can be adjusted to slowly increase goldenFeathers as your on the ground
+            }
+           
             extraGlideMS = 0;
         }    
 
@@ -240,8 +247,16 @@ public class ClaireController : MonoBehaviour
             jumpInput = true; //if jumpTimer is less than JumpLimit, and you either are on the ground or have golden feathers, the input is registed as a jump. Hence, jumpInput is true
             if (initTimer == 1)
             {
+                if (goldenFeathers == 1)
+                {
+                    //run the function that change the color of the cape and cloth
+                    model.GetComponent<ClaireAnimatorController>().ChangeToBlue();
+
+                }
                 goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
+                model.GetComponent<ClaireAnimatorController>().Jump();
             }
+            
         }
         else
         {

@@ -360,7 +360,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 9bdeefb277f9c744d8608fae557f02df, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 4219f5aa59bac224cbfdf3a25cf3ede6, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -484,6 +484,7 @@ MonoBehaviour:
   initTimer: 0
   timeToGlideTimer: 0
   timeToGlideLimit: 15
+  rotateSpeed: 0
 --- !u!54 &347074028
 Rigidbody:
   m_ObjectHideFlags: 0
