@@ -17,8 +17,12 @@ public class ParticleSystemController : MonoBehaviour
         
     }
 
-    public void WalkingParticle()
+    public void WalkingParticle(int particleAmount)
     {
-        WalkParticleSystem.Emit(6);
+        if (WalkParticleSystem != null)
+        {
+        WalkParticleSystem.Emit(particleAmount);
+        }
+        
     }
 }
