@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class ClaireAnimatorController : MonoBehaviour
 {//control all the visual aspest of the character;
-    [SerializeField]private Animator animator;
-    [SerializeField]private Color red;
-    [SerializeField]private Color blue;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Color red;
+    [SerializeField] private Color blue;
     [SerializeField] private Material CapeMaterial;
     private float colorLerpFloat = 0;
-    [SerializeField]private float colorChangeRate;
+    [SerializeField] private float colorChangeRate;
     private bool changeToBlue = false;
     private bool changeToRed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,13 +24,14 @@ public class ClaireAnimatorController : MonoBehaviour
     {
         animator.SetFloat("Speed", ClaireController.ClaireSpeed);
         animator.SetBool("onGround", ClaireController.onGround);
-        if (ClaireController.ClaireSpeed>0 && ClaireController.ClaireSpeed < 0.5f)
+        //change animation speed based on control
+        if (ClaireController.ClaireSpeed > 0 && ClaireController.ClaireSpeed < 0.5f)
         {
-            animator.speed = (ClaireController.ClaireSpeed/0.3f);
+            animator.speed = (ClaireController.ClaireSpeed / 0.3f);
         }
         else if (ClaireController.ClaireSpeed >= 0.5f)
         {
-            animator.speed = 0.8f + (ClaireController.ClaireSpeed-0.5f)/0.6f;
+            animator.speed = 0.8f + (ClaireController.ClaireSpeed - 0.5f) / 0.6f;
         }
         else
         {
@@ -41,7 +42,7 @@ public class ClaireAnimatorController : MonoBehaviour
 
         if (changeToBlue)
         {
-            Color lerpedColor = Color.Lerp(red,blue,colorLerpFloat);
+            Color lerpedColor = Color.Lerp(red, blue, colorLerpFloat);
             CapeMaterial.color = lerpedColor;
             colorLerpFloat += Time.deltaTime * colorChangeRate;
             if (colorLerpFloat >= 1)
@@ -81,8 +82,8 @@ public class ClaireAnimatorController : MonoBehaviour
     {
         if (CapeMaterial.color != red)
         {
-        changeToRed = true;
+            changeToRed = true;
         }
-        
+
     }
 }
