@@ -12,6 +12,7 @@ public class ClaireController : MonoBehaviour
     public Camera cam;
     public GameObject camDir; //Object which helps determine direction of movement by factoring in direction of camera
     public GameObject model; //The model for the object, childed to the main object
+    public GameObject horiMotionDir; //Points in the direction of horizontal motion. Similar to camDir in purpose. 
 
     [Header("Inputs")]
     public float horizontalInput; 
@@ -19,7 +20,7 @@ public class ClaireController : MonoBehaviour
     public bool mainInput; //Main Input is for when A is pressed
     public bool interactInput; //If A is pressed for an interaction, this is turned on
     public static bool jumpInput; //If A is pressed to jump, this is turned on
-    public bool climbInput;
+    public bool climbInput; //If A is pressed to climb, this is turned on
     public bool glideInput; //If A is pressed to glide, this is turned on
 
     [Header("Important Charecter Bools")]
@@ -27,13 +28,14 @@ public class ClaireController : MonoBehaviour
     public bool canClimb;
 
     [Header("Important Charecter Ints")]
-    public static float goldenFeathers;
+    public float goldenFeathers;
     public int goldenFeathersMax;
 
 
     [Header("General Movement")]    
     public float moveSpeed; //This speed of movement
     public Vector3 velocity; //Velocity is added to transform.position every frame
+    public Vector3 targetVelocity;
     public Vector3 floorOffset; //How far the player is placed off the floor
 
     [Header("Climbing Movement")]
@@ -84,10 +86,14 @@ public class ClaireController : MonoBehaviour
     public int initTimer; //A simple timer that decreases goldenFeathers by 1 if you jump
     public int timeToGlideTimer; //A timer that tracks when the player can start gliding
     public int timeToGlideLimit;//If timeToGlideTimer is bigger than limit, you can glide
+    public int climbTimer; //A timer that tracks how long since the climbChecker raycast has been inactive
+    public int climbLimit; //If climbTimer is smaller than this, the player can continue climbing. This allows players to climb over objects, as opposed to falling just as they crest.
+
 
     //variable added by Robert
     public float rotateSpeed;
     public static float ClaireSpeed;
+
     void Awake()
     {
         me = this;
@@ -101,26 +107,18 @@ public class ClaireController : MonoBehaviour
 
     void Update()
     {
-        GetCameraDir();
+        SetDirs();
         Inputs();
-
-       //Debug.Log("Speed: " + Mathf.Sqrt(velocity.x*velocity.x + velocity.z*velocity.z));
-
-        ClaireSpeed = Mathf.Sqrt(verticalInput * verticalInput + horizontalInput * horizontalInput);
-       
-        //rotate character model
-        
-        if (horizontalInput!=0 || verticalInput != 0)
-        {
-        Quaternion newRotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, velocity.z));
-        model.transform.rotation = Quaternion.Slerp(model.transform.rotation,newRotation,rotateSpeed*Time.deltaTime);
-        }
-        
     }
 
-    void GetCameraDir() //Sets the orientation of a childed object to the same as the following camera, minus any vertical orientation. 
+    void SetDirs() //Sets the orientation of a childed object to the same as the following camera, minus any vertical orientation. 
     {
         camDir.transform.eulerAngles = new Vector3(0, cam.transform.eulerAngles.y, 0);
+        if (Mathf.Abs(velocity.x) > 0.025f || Mathf.Abs(velocity.z) > 0.025f)
+        {
+            Vector3 motionDir = new Vector3(velocity.x, 0, velocity.z);
+            horiMotionDir.transform.LookAt(transform.position + motionDir);
+        }
     }
 
     void Inputs() //All inputs are got here
@@ -155,6 +153,8 @@ public class ClaireController : MonoBehaviour
             jumpTimer = 0;
             initTimer = 0;
             timeToGlideTimer = 0;
+            gravity = baseGravity;
+            terminalVelocity = baseTerminalVelocity;
         }
 
 
@@ -178,22 +178,18 @@ public class ClaireController : MonoBehaviour
         }
 
         if (onGround)
-        {
-            
+        {         
             if (goldenFeathers != goldenFeathersMax)
-            { 
-            model.GetComponent<ClaireAnimatorController>().ChangeToRed(); // change cape color to red when on the ground
-            goldenFeathers = goldenFeathersMax; //Currently sets goldenFeaters back to its max if youre on the ground. Can be adjusted to slowly increase goldenFeathers as your on the ground
+            {             
+                goldenFeathers = goldenFeathersMax; //Currently sets goldenFeaters back to its max if youre on the ground. Can be adjusted to slowly increase goldenFeathers as your on the ground
             }
-           
+            glideInput = false;
+            model.GetComponent<ClaireAnimatorController>().ChangeToRed(); // change cape color to red when on the ground
             extraGlideMS = 0;
-        }    
+        }
 
         VerticalMovement();
-        if (!climbInput)
-        {
-            Velocity();
-        }
+        Velocity();
         ModelRotation();
     }
 
@@ -201,7 +197,7 @@ public class ClaireController : MonoBehaviour
     {
         floorChecker = new Ray(transform.position + (transform.up * -0.65f), transform.up * -1); //This ray checks for the floor
         Debug.DrawRay(floorChecker.origin, floorChecker.direction * floorRayDistance, Color.cyan);
-        climbChecker = new Ray(transform.position, model.transform.forward); //This ray checks for climbable walls
+        climbChecker = new Ray(transform.position, horiMotionDir.transform.forward); //This ray checks for climbable walls
         Debug.DrawRay(climbChecker.origin, climbChecker.direction * climbRayDistance, Color.magenta);
 
         if (Physics.Raycast(floorChecker, out floorHit, floorRayDistance)) //If the floorChecker ray hits the floor
@@ -213,7 +209,7 @@ public class ClaireController : MonoBehaviour
             onGround = false;
         }
 
-        if (Physics.Raycast(climbChecker, out climbHit, climbRayDistance)) //If the floorChecker ray hits the floor
+        if (Physics.Raycast(climbChecker, out climbHit, climbRayDistance)) //If the climbChecker hits a wall
         {
             canClimb = true;
         }
@@ -226,6 +222,7 @@ public class ClaireController : MonoBehaviour
     void CheckMainInput() //Check Main Input is what determines how a press or hold of the A button should be treated. Given its multi-use functionality, this runs first to determine how to handle the input.
     {
         jumpTimer++;
+        climbTimer++;
         initTimer++;
         timeToGlideTimer++;
         //if there is an interact prompt (talking, reading or picking up)
@@ -233,14 +230,16 @@ public class ClaireController : MonoBehaviour
         //    interactInput = true;
         //}
         //else it is related to jumping, climbing and or gliding, so
-       //if(canClimb && goldenFeathers > 0.1f)
-       //{
-       //    climbInput = true;
-       //}
-       //else
-       //{
-       //    climbInput = false;
-       //}
+        if (canClimb && goldenFeathers > 0.1f)
+        {
+            climbInput = true;
+            climbTimer = 0;
+            goldenFeathers -= goldenFeathersSub;
+        }
+        else
+        {
+            climbInput = false;
+        }
 
         if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
         {
@@ -256,14 +255,14 @@ public class ClaireController : MonoBehaviour
                 goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
                 model.GetComponent<ClaireAnimatorController>().Jump();
             }
-            
+
         }
         else
         {
             jumpInput = false;
         }
 
-        if(timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
+        if (!climbInput && timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
         {
             glideInput = true;
         }
@@ -288,10 +287,9 @@ public class ClaireController : MonoBehaviour
         }
         else if(totalInput < 0.2)
         {
-
-            totalInput = 0.2f; //Dividing by 0 is impossible, and dividing by close to 0 can be damaging. Keeping it 0.2 keeps the later math simple and controllable.
-            extraGlideMS += additiveGlide; //Little enough input is being registered for a dive to be triggered. Hence, additiveGlide is added to extraGlideMS
+            totalInput = 0.2f; //Dividing by 0 is impossible, and dividing by close to 0 can be damaging. Keeping it 0.2 keeps the later math simple and controllabe
         }
+        extraGlideMS += (additiveGlide / totalInput); //Little enough input is being registered for a dive to be triggered. Hence, additiveGlide is added to extraGlideMS
         extraGlideMS += subtractiveGlide; //extraGlideMS is subtracted from each frame by subtractiveGlide to slowly reduce the speed of the glide
         if (extraGlideMS > extraGlideMSMax)
         {
@@ -301,25 +299,21 @@ public class ClaireController : MonoBehaviour
         {
             extraGlideMS = 0; //Stops extraGlideMS from getting too small
         }
-        glideMoveSpeed = baseGlideMS + extraGlideMS; //glideMoveSpeed = the minimum glideMoveSpeed + extraGlideMoveSpeed, affected by whether the player has been gliding or not
-        glideGravity = baseGravity + (extraGlideGrav/totalInput); //glideGravity = the minimum glideGravity + (extraGlideGrav dividied by the total Input. If totalInput is at its Max (1), extraGlideGrav is at its smallest. If totalInput is at its smallest (0.2), extraGlideGrav is at its biggest.
-        glideTerminalVelocity = baseGlideTV + (extraGlideTV/totalInput); //glideTerminalVelocity = the minimum glideTerminalVelocity + (extraglideTerminalVelocity dividied by the total Input. If totalInput is at its Max (1), extraglideTerminalVelocity is at its smallest. If totalInput is at its smallest (0.2), extraglideTerminalVelocity is at its biggest.
-
-        gravity = glideGravity;
-        terminalVelocity = glideTerminalVelocity;        
+        glideMoveSpeed = baseGlideMS + extraGlideMS; //glideMoveSpeed = the minimum glideMoveSpeed + extraGlideMoveSpeed, affected by whether the player has been gliding or not       
     }
 
     void VerticalMovement() //VerticalSpeed is determined separatly from the rest of velocity, and is calculated here
     {  
-        if (!initJump && !climbInput) //If you are not jumping
+        if (!initJump && !(climbInput && climbTimer < climbLimit) && !glideInput) //If you are not jumping
         {
+            Debug.Log("Main Physics is on");
             MainPhysics(); //Regular physics applies
         }
         else if(initJump)//If you are jumping
         {
             JumpPhysics(); //Jump physics applies
         }
-        else if(climbInput)
+        else if(climbTimer < climbLimit)
         {
             ClimbPhysics();
         }
@@ -350,29 +344,83 @@ public class ClaireController : MonoBehaviour
 
     void ClimbPhysics()
     {
-        goldenFeathers -= goldenFeathersSub;
-        rb.MovePosition(climbHit.point + (model.transform.forward * -disFromWall));
+        verticalSpeed = 0;
+        Vector3 mainMotion = climbHit.point + (transform.up * 0.1f) + (horiMotionDir.transform.forward * -disFromWall);
+        Vector3 extraMotion = horiMotionDir.transform.forward * 0.1f;
+        rb.MovePosition(mainMotion + extraMotion);
     }
 
     void Velocity() //This is when velocity is finally determined and applied, once all inputs and thus player state is confirmed
     {
-        Vector3 targetVelocity = Vector3.zero;  //targetVelocity is set to 0
+        targetVelocity = Vector3.zero;
         if (!glideInput)
         {
+            
             targetVelocity = (moveSpeed * (horizontalInput * camDir.transform.right)) + (moveSpeed * (verticalInput * camDir.transform.forward)); //if not gliding, targetVelocity uses normal moveSpeed to determine horizontal velocity
         }
         else
         {
             targetVelocity = (glideMoveSpeed * (horizontalInput * camDir.transform.right)) + (glideMoveSpeed * (verticalInput * camDir.transform.forward)); //if gliding, targetVelocity uses normal moveSpeed to determine horizontal velocity
         }
-        velocity = Vector3.Lerp(velocity, targetVelocity, 0.25f); //velocity is lerped to targetVelocity to keep it smoother
-        velocity.y = verticalSpeed; //verticalSpeed is set after the lerp and all other calculations to ensure it is not affected by other parts
 
+        if (!glideInput)
+        {
+            velocity = Vector3.Lerp(velocity, targetVelocity, 0.25f); //velocity is lerped to targetVelocity to keep it smoother
+
+            velocity.y = verticalSpeed; //verticalSpeed is set after the lerp and all other calculations to ensure it is not affected by other parts
+        }
+        else
+        {
+            velocity = Vector3.Lerp(velocity, targetVelocity, 0.03f); //Slower Lerp when gliding
+            velocity.y = GlidePhyics();
+        }
         rb.MovePosition(transform.position + velocity); //Finally, velocity is added to transform.position
+    }
+
+    float GlidePhyics()
+    {
+        float totalHoriVelocity = Mathf.Abs(velocity.x) + Mathf.Abs(velocity.z);
+        Debug.Log(totalHoriVelocity);
+        if(totalHoriVelocity < 0.05f)
+        {
+            totalHoriVelocity = 0.05f;
+        }
+        glideGravity = baseGravity + (extraGlideGrav / (7.5f * totalHoriVelocity)); //glideGravity = the minimum glideGravity + (extraGlideGrav dividied by the total Input. If totalInput is at its Max (1), extraGlideGrav is at its smallest. If totalInput is at its smallest (0.2), extraGlideGrav is at its biggest.
+        glideTerminalVelocity = baseGlideTV + (extraGlideTV / (7.5f * totalHoriVelocity)); //glideTerminalVelocity = the minimum glideTerminalVelocity + (extraglideTerminalVelocity dividied by the total Input. If totalInput is at its Max (1), extraglideTerminalVelocity is at its smallest. If totalInput is at its smallest (0.2), extraglideTerminalVelocity is at its biggest.
+
+        gravity = glideGravity;
+        terminalVelocity = glideTerminalVelocity;
+
+        verticalSpeed += gravity; //verticalSpeed is minused from gravity
+        if (verticalSpeed < terminalVelocity)
+        {
+            verticalSpeed = terminalVelocity; //verticalSpeed is set to terminalVelocity if it is lower
+        }
+
+        return verticalSpeed;
     }
 
     void ModelRotation()
     {
-     //   model.transform.LookAt(transform.position + velocity);
+        //   model.transform.LookAt(transform.position + velocity);
+        //Debug.Log("Speed: " + Mathf.Sqrt(velocity.x*velocity.x + velocity.z*velocity.z));
+
+        ClaireSpeed = Mathf.Sqrt(verticalInput * verticalInput + horizontalInput * horizontalInput);
+        Quaternion newRotation;
+
+        //rotate character model
+        // transform.rotation = Quaternion.Euler(0f,camDir.transform.rotation.eulerAngles.y,0f);
+        if (horizontalInput != 0 || verticalInput != 0)
+        {
+            if (!glideInput)
+            {
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, velocity.z));
+            }
+            else
+            {
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, -1000, velocity.z));
+            }
+            model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+        }
     }
 }
