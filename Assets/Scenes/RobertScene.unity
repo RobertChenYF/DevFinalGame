@@ -155,7 +155,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 521436906}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291760874
 GameObject:
@@ -460,6 +460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1455533208}
+  - {fileID: 1221662892}
   - {fileID: 257658681}
   - {fileID: 1251877442}
   m_Father: {fileID: 0}
@@ -500,25 +501,25 @@ MonoBehaviour:
   goldenFeathersSub: 0
   initJump: 0
   verticalSpeed: 0
-  jumpSpeed: 0.185
+  jumpSpeed: 0.145
   glideMoveSpeed: 0
-  baseGlideMS: 0.3
+  baseGlideMS: 0.15
   extraGlideMS: 0
-  additiveGlide: 0.01
-  subtractiveGlide: -0.001
+  additiveGlide: 0.00015
+  subtractiveGlide: 0.00015
   extraGlideMSMax: 0.3
   gravity: -0.008
   baseGravity: -0.008
-  glideGravity: -0.002
-  baseGlideGrav: -0.002
+  glideGravity: -0.0005
+  baseGlideGrav: -0.0005
   extraGlideGrav: -0.00075
   terminalVelocity: -1
   baseTerminalVelocity: -0.4
   glideTerminalVelocity: -0.1
-  baseGlideTV: -0.1
-  extraGlideTV: -0.1
+  baseGlideTV: -0.005
+  extraGlideTV: -0.075
   floorRayDistance: 0.7
-  climbRayDistance: 0
+  climbRayDistance: 0.8
   jumpTimer: 0
   jumpLimit: 6
   initTimer: 0
@@ -536,7 +537,7 @@ Rigidbody:
   m_GameObject: {fileID: 521436905}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 100000000
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
