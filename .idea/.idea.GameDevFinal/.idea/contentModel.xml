@@ -4,6 +4,7 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="GoldenFeathersTemp.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="CameraController.cs" t="Include" />
           <e p="ClaireAnimatorController.cs" t="Include" />
@@ -14,6 +15,9 @@
             <e p="SimpleClaireMovingScript.cs" t="Include" />
           </e>
           <e p="ParticleSystemController.cs" t="Include" />
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="ToonComplete.shader" t="Include" />
         </e>
         <e p="Text" t="Include">
           <e p="text1.txt" t="Include" />
