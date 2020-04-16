@@ -66,7 +66,7 @@ public class MassegeControl : MonoBehaviour
          {
                 TurnOnMessage();  // turn on canvas when Claire enters the collider
                 
-                //Debug.Log("lllll");
+                Debug.Log("entered");
 //                Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 //                textBoxContainer.transform.position = screenPos;
 
