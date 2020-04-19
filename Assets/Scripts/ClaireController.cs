@@ -90,9 +90,13 @@ public class ClaireController : MonoBehaviour
     public int climbLimit; //If climbTimer is smaller than this, the player can continue climbing. This allows players to climb over objects, as opposed to falling just as they crest.
 
 
-    //variable added by Robert
+    [Header("Model Rotation")]
     public float rotateSpeed;
+    public float glideRotateSpeed;
     public static float ClaireSpeed;
+    public float modelVert; //Acts at the vertical component in model rotation calculations so we can get smooth transitions between upright and flat
+    public float glideAdditive; //Added and subtracted to glideDown when glideinput is true
+    public float glideDownMax; //The max glideDown can go (the min is 0)
 
     void Awake()
     {
@@ -414,13 +418,30 @@ public class ClaireController : MonoBehaviour
         {
             if (!glideInput)
             {
-                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, velocity.z));
+                if(modelVert < -0.5f)
+                {
+                    modelVert = -0.5f;
+                }
+                modelVert += glideAdditive;
+                if (modelVert > 0)
+                {
+                    modelVert = 0;
+                }
+
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+                model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed);
             }
             else
             {
-                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, -1000, velocity.z));
+                modelVert -= glideAdditive;
+                if (modelVert < glideDownMax)
+                {
+                    modelVert = glideDownMax;
+                }
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+                model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
             }
-            model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+            
         }
     }
 }
