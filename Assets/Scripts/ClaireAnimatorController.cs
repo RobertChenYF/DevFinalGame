@@ -12,6 +12,10 @@ public class ClaireAnimatorController : MonoBehaviour
     [SerializeField] private float colorChangeRate;
     private bool changeToBlue = false;
     private bool changeToRed = false;
+    public TrailRenderer glideTrail1;
+    public TrailRenderer glideTrail2;
+    public Shader ColorToon;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +47,7 @@ public class ClaireAnimatorController : MonoBehaviour
         if (changeToBlue)
         {
             Color lerpedColor = Color.Lerp(red, blue, colorLerpFloat);
-            CapeMaterial.color = lerpedColor;
+            CapeMaterial.SetColor("Color_B0294C1D", lerpedColor);
             colorLerpFloat += Time.deltaTime * colorChangeRate;
             if (colorLerpFloat >= 1)
             {
@@ -54,7 +58,7 @@ public class ClaireAnimatorController : MonoBehaviour
         else if (changeToRed)
         {
             Color lerpedColor = Color.Lerp(blue, red, colorLerpFloat);
-            CapeMaterial.color = lerpedColor;
+            CapeMaterial.SetColor("Color_B0294C1D", lerpedColor);
             colorLerpFloat += Time.deltaTime * colorChangeRate;
             if (colorLerpFloat >= 1)
             {
@@ -67,12 +71,24 @@ public class ClaireAnimatorController : MonoBehaviour
     public void Jump()
     {
         animator.SetTrigger("Jump");
-        Debug.Log("jump");
+
     }
+
+    public void Glide()
+    {
+        animator.SetBool("Glide", true);
+        Debug.Log("glide");
+    }
+    public void StopGlide()
+    {
+        animator.SetBool("Glide", false);
+        Debug.Log("glide");
+    }
+
 
     public void ChangeToBlue()
     {
-        if (CapeMaterial.color != blue)
+        if (CapeMaterial.GetColor("Color_B0294C1D") != blue)
         {
             changeToBlue = true;
         }
@@ -80,10 +96,37 @@ public class ClaireAnimatorController : MonoBehaviour
 
     public void ChangeToRed()
     {
-        if (CapeMaterial.color != red)
+        if (CapeMaterial.GetColor("Color_B0294C1D") != red)
         {
             changeToRed = true;
         }
 
     }
+
+    public void GlideTrail()
+    {
+        
+        glideTrail1.emitting = true;
+        glideTrail2.emitting = true;
+        
+    }
+
+    public void GlideTrailOff()
+    {
+        glideTrail1.emitting = false;
+        glideTrail2.emitting = false;
+
+    }
+
+    public void Climb()
+    {
+        animator.SetBool("Climb", true);
+        Debug.Log("climb");
+    }
+    public void StopClimb()
+    {
+        animator.SetBool("Climb", false);
+        Debug.Log("climb");
+    }
+
 }

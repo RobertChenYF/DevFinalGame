@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GoldenFeatherScript : MonoBehaviour
 {
+    [SerializeField]private float rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,7 @@ public class GoldenFeatherScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(0, rotationSpeed*Time.deltaTime, 0, Space.Self);
     }
 
     void OnTriggerEnter(Collider col)
