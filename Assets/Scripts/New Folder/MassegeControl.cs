@@ -23,6 +23,8 @@ public class MassegeControl : MonoBehaviour
     private float typeWriterDelay = 0.02f;
     public string fullText;
     public string currentText;
+
+    public bool insideCollider;
     
 
     void Start()
@@ -44,22 +46,28 @@ public class MassegeControl : MonoBehaviour
          
          if( messageCanvas.enabled == true)
          {
-             Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-             textBoxContainer.transform.position = screenPos;
-
-             //massage1.text = textLines[currentLine];
-
-             if (Input.GetKeyDown(KeyCode.Space))
+             if (insideCollider)
              {
-                 StartCoroutine(TypeWriter());
-                 currentLine += 1;
-                 fullText = textLines[currentLine];
+                 Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+                 textBoxContainer.transform.position = screenPos;
              }
 
-             if (currentLine > endLineAt - 1)
+             //massage1.text = textLines[currentLine];
+             
+             
+             if (Input.GetKeyDown(KeyCode.Space) && insideCollider)
              {
-                 messageCanvas.enabled = false;
-                 currentLine = 0;
+                 if (currentLine > endLineAt )
+                 {
+                     messageCanvas.enabled = false;
+                     currentLine = 0;
+                     return;
+                 }
+                 
+                 StopAllCoroutines();
+                 fullText = textLines[currentLine];
+                 StartCoroutine(TypeWriter());
+                 currentLine += 1;
              }
          }
          
@@ -69,27 +77,37 @@ public class MassegeControl : MonoBehaviour
         
      void OnTriggerEnter(Collider other)
      {
+         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+         textBoxContainer.transform.position = screenPos;
+
+         insideCollider = true;
          if (other.gameObject.tag == "Claire")
          {
+                massage1.text = "!";
                 TurnOnMessage();  // turn on canvas when Claire enters the collider
-                
+                currentLine = 0;
+                fullText = textLines[currentLine];//set in the current text in to the type writer
                 Debug.Log("entered");
-                StartCoroutine(TypeWriter());
-                currentLine = 1;
+                //StartCoroutine(TypeWriter());
+                
          }
      }
  
     private void TurnOnMessage()
     {
+        Debug.Log("Turning on massage canvas");
         messageCanvas.enabled = true;//function for enable canvas
+        
     }
          
     void OnTriggerExit(Collider other)
     {
+        insideCollider = false;
         if (other.gameObject.tag == "Claire")
         {
             TurnOffMessage(); // turn off canvas when Claire enters the collider
             currentLine = 0; // reset line counter
+            //fullText = textLines[currentLine];//set in the current text in to the type writer
         }
     }
  

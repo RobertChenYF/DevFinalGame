@@ -90,9 +90,13 @@ public class ClaireController : MonoBehaviour
     public int climbLimit; //If climbTimer is smaller than this, the player can continue climbing. This allows players to climb over objects, as opposed to falling just as they crest.
 
 
-    //variable added by Robert
+    [Header("Model Rotation")]
     public float rotateSpeed;
+    public float glideRotateSpeed;
     public static float ClaireSpeed;
+    public float modelVert; //Acts at the vertical component in model rotation calculations so we can get smooth transitions between upright and flat
+    public float glideAdditive; //Added and subtracted to glideDown when glideinput is true
+    public float glideDownMax; //The max glideDown can go (the min is 0)
 
     void Awake()
     {
@@ -181,10 +185,11 @@ public class ClaireController : MonoBehaviour
         {         
             if (goldenFeathers != goldenFeathersMax)
             {             
+                model.GetComponent<ClaireAnimatorController>().ChangeToRed();
                 goldenFeathers = goldenFeathersMax; //Currently sets goldenFeaters back to its max if youre on the ground. Can be adjusted to slowly increase goldenFeathers as your on the ground
             }
             glideInput = false;
-            model.GetComponent<ClaireAnimatorController>().ChangeToRed(); // change cape color to red when on the ground
+             // change cape color to red when on the ground
             extraGlideMS = 0;
         }
 
@@ -235,10 +240,13 @@ public class ClaireController : MonoBehaviour
             climbInput = true;
             climbTimer = 0;
             goldenFeathers -= goldenFeathersSub;
+            model.GetComponent<ClaireAnimatorController>().StopGlide();
+            model.GetComponent<ClaireAnimatorController>().Climb();
         }
         else
         {
             climbInput = false;
+            model.GetComponent<ClaireAnimatorController>().StopClimb();
         }
 
         if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
@@ -253,7 +261,9 @@ public class ClaireController : MonoBehaviour
 
                 }
                 goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
+                model.GetComponent<ClaireAnimatorController>().StopGlide();
                 model.GetComponent<ClaireAnimatorController>().Jump();
+                model.GetComponent<ClaireAnimatorController>().StopClimb();
             }
 
         }
@@ -265,10 +275,15 @@ public class ClaireController : MonoBehaviour
         if (!climbInput && timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
         {
             glideInput = true;
+            model.GetComponent<ClaireAnimatorController>().Glide();
+
+
         }
         else
         {
             glideInput = false;
+            model.GetComponent<ClaireAnimatorController>().StopGlide();
+
         }
     }
 
@@ -307,6 +322,7 @@ public class ClaireController : MonoBehaviour
         if (!initJump && !(climbInput && climbTimer < climbLimit) && !glideInput) //If you are not jumping
         {
             Debug.Log("Main Physics is on");
+            model.GetComponent<ClaireAnimatorController>().StopGlide();
             MainPhysics(); //Regular physics applies
         }
         else if(initJump)//If you are jumping
@@ -380,7 +396,7 @@ public class ClaireController : MonoBehaviour
     float GlidePhyics()
     {
         float totalHoriVelocity = Mathf.Abs(velocity.x) + Mathf.Abs(velocity.z);
-        Debug.Log(totalHoriVelocity);
+        //Debug.Log(totalHoriVelocity);
         if(totalHoriVelocity < 0.05f)
         {
             totalHoriVelocity = 0.05f;
@@ -414,13 +430,30 @@ public class ClaireController : MonoBehaviour
         {
             if (!glideInput)
             {
-                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, velocity.z));
+                if(modelVert < -0.5f)
+                {
+                    modelVert = -0.5f;
+                }
+                modelVert += glideAdditive;
+                if (modelVert > 0)
+                {
+                    modelVert = 0;
+                }
+
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+                model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed);
             }
             else
             {
-                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, -1000, velocity.z));
+                modelVert -= glideAdditive;
+                if (modelVert < glideDownMax)
+                {
+                    modelVert = glideDownMax;
+                }
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+                model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
             }
-            model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
+            
         }
     }
 }
