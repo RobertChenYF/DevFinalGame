@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Zehua and Greg worked on this on Apr 22.
+// still needs disable jump when reading text.
+
 public class MassegeControl : MonoBehaviour
 {
-    
+
     public Canvas messageCanvas;// The canvas for all massage text
     public GameObject textBoxContainer;//Inside canvas, holds the text box, set a maximum size for the text box
     

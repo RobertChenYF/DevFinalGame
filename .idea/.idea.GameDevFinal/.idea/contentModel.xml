@@ -11,9 +11,7 @@
           <e p="ClaireAnimatorController.cs" t="Include" />
           <e p="ClaireController.cs" t="Include" />
           <e p="EyeController.cs" t="Include" />
-          <e p="New Folder" t="Include">
-            <e p="MassegeControl.cs" t="Include" />
-          </e>
+          <e p="MassegeControl.cs" t="Include" />
           <e p="ParticleSystemController.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
