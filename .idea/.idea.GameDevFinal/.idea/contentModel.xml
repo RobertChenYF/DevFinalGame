@@ -12,11 +12,13 @@
           <e p="EyeController.cs" t="Include" />
           <e p="New Folder" t="Include">
             <e p="MassegeControl.cs" t="Include" />
-            <e p="SimpleClaireMovingScript.cs" t="Include" />
           </e>
           <e p="ParticleSystemController.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
+          <e p="Simple Toon Shader" t="Include">
+            <e p="MainLight.hlsl" t="Include" />
+          </e>
           <e p="ToonComplete.shader" t="Include" />
         </e>
         <e p="Text" t="Include">
