@@ -1,0 +1,5 @@
+﻿NPC :This is Line 1
+NPC :This is line 2
+NPC: and this is line 3
+NPC: line 4
+NPC: IT's line 5 and this is the final line!!!!!

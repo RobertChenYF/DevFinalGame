@@ -4,23 +4,25 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="GoldenFeatherScript.cs" t="Include" />
         <e p="GoldenFeathersTemp.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="CameraController.cs" t="Include" />
           <e p="ClaireAnimatorController.cs" t="Include" />
           <e p="ClaireController.cs" t="Include" />
           <e p="EyeController.cs" t="Include" />
-          <e p="New Folder" t="Include">
-            <e p="MassegeControl.cs" t="Include" />
-            <e p="SimpleClaireMovingScript.cs" t="Include" />
-          </e>
+          <e p="MassegeControl.cs" t="Include" />
           <e p="ParticleSystemController.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
+          <e p="Simple Toon Shader" t="Include">
+            <e p="MainLight.hlsl" t="Include" />
+          </e>
           <e p="ToonComplete.shader" t="Include" />
         </e>
         <e p="Text" t="Include">
           <e p="text1.txt" t="Include" />
+          <e p="text2.txt" t="Include" />
         </e>
       </e>
       <e p="GameDevFinal.sln" t="IncludeFlat" />
