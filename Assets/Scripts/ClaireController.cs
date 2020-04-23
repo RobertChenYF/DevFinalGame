@@ -426,34 +426,30 @@ public class ClaireController : MonoBehaviour
 
         //rotate character model
         // transform.rotation = Quaternion.Euler(0f,camDir.transform.rotation.eulerAngles.y,0f);
-        if (horizontalInput != 0 || verticalInput != 0)
+        if (!glideInput)
         {
-            if (!glideInput)
+            if (modelVert < -0.5f)
             {
-                if(modelVert < -0.5f)
-                {
-                    modelVert = -0.5f;
-                }
-                modelVert += glideAdditive;
-                if (modelVert > 0)
-                {
-                    modelVert = 0;
-                }
+                modelVert = -0.5f;
+            }
+            modelVert += glideAdditive;
+            if (modelVert > 0)
+            {
+                modelVert = 0;
+            }
 
-                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
-                model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed);
-            }
-            else
+            newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+            model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed);
+        }
+        else
+        {
+            modelVert -= glideAdditive;
+            if (modelVert < glideDownMax)
             {
-                modelVert -= glideAdditive;
-                if (modelVert < glideDownMax)
-                {
-                    modelVert = glideDownMax;
-                }
-                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
-                model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
+                modelVert = glideDownMax;
             }
-            
+            newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+            model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
         }
     }
 }
