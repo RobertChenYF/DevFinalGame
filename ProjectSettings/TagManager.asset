@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Claire
   - Golden_Feather
+  - TextInteraction
+  - Interactable
   layers:
   - Default
   - TransparentFX

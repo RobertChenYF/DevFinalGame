@@ -26,6 +26,8 @@ public class ClaireController : MonoBehaviour
     [Header("Important Charecter Bools")]
     public static bool onGround;
     public bool canClimb;
+    public bool inInteractable;
+    public bool cantMove;
 
     [Header("Important Charecter Ints")]
     public float goldenFeathers;
@@ -97,6 +99,10 @@ public class ClaireController : MonoBehaviour
     public float modelVert; //Acts at the vertical component in model rotation calculations so we can get smooth transitions between upright and flat
     public float glideAdditive; //Added and subtracted to glideDown when glideinput is true
     public float glideDownMax; //The max glideDown can go (the min is 0)
+
+    [Header("SoundSources")]
+    public AudioSource aud_flap;
+    public AudioSource aud_jump;
 
     void Awake()
     {
@@ -193,9 +199,12 @@ public class ClaireController : MonoBehaviour
             extraGlideMS = 0;
         }
 
-        VerticalMovement();
-        Velocity();
-        ModelRotation();
+        if (!cantMove)
+        {
+            VerticalMovement();
+            Velocity();
+            ModelRotation();
+        }
     }
 
     void RayCasts()
@@ -230,60 +239,72 @@ public class ClaireController : MonoBehaviour
         climbTimer++;
         initTimer++;
         timeToGlideTimer++;
-        //if there is an interact prompt (talking, reading or picking up)
-        //{
-        //    interactInput = true;
-        //}
-        //else it is related to jumping, climbing and or gliding, so
-        if (canClimb && goldenFeathers > 0.1f)
+        if (inInteractable) //if there is an interact prompt (talking, reading or picking up)
         {
-            climbInput = true;
-            climbTimer = 0;
-            goldenFeathers -= goldenFeathersSub;
-            model.GetComponent<ClaireAnimatorController>().StopGlide();
-            model.GetComponent<ClaireAnimatorController>().Climb();
+            interactInput = true;
         }
-        else
+        else //else it is related to jumping, climbing and or gliding, so
         {
-            climbInput = false;
-            model.GetComponent<ClaireAnimatorController>().StopClimb();
-        }
-
-        if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
-        {
-            jumpInput = true; //if jumpTimer is less than JumpLimit, and you either are on the ground or have golden feathers, the input is registed as a jump. Hence, jumpInput is true
-            if (initTimer == 1)
+            if (canClimb && goldenFeathers > 0.1f)
             {
-                if (goldenFeathers == 1)
-                {
-                    //run the function that change the color of the cape and cloth
-                    model.GetComponent<ClaireAnimatorController>().ChangeToBlue();
-
-                }
-                goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
+                climbInput = true;
+                climbTimer = 0;
+                goldenFeathers -= goldenFeathersSub;
                 model.GetComponent<ClaireAnimatorController>().StopGlide();
-                model.GetComponent<ClaireAnimatorController>().Jump();
+                model.GetComponent<ClaireAnimatorController>().Climb();
+            }
+            else
+            {
+                climbInput = false;
                 model.GetComponent<ClaireAnimatorController>().StopClimb();
             }
 
-        }
-        else
-        {
-            jumpInput = false;
-        }
+            if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
+            {
+                jumpInput = true; //if jumpTimer is less than JumpLimit, and you either are on the ground or have golden feathers, the input is registed as a jump. Hence, jumpInput is true
+                if (initTimer == 1)
+                {
+                    if (goldenFeathers == 1)
+                    {
+                        //run the function that change the color of the cape and cloth
+                        model.GetComponent<ClaireAnimatorController>().ChangeToBlue();
 
-        if (!climbInput && timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
-        {
-            glideInput = true;
-            model.GetComponent<ClaireAnimatorController>().Glide();
+                    }
+                    goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
+                    if (!onGround)
+                    {
+                        aud_flap.pitch = Random.Range(0.85f, 1.15f);
+                        aud_flap.Play();
+                    }
+                    else
+                    {
+                        aud_jump.pitch = Random.Range(0.85f, 1.15f);
+                        aud_jump.Play();
+                    }
+                    model.GetComponent<ClaireAnimatorController>().StopGlide();
+                    model.GetComponent<ClaireAnimatorController>().Jump();
+                    model.GetComponent<ClaireAnimatorController>().StopClimb();
+                }
+
+            }
+            else
+            {
+                jumpInput = false;
+            }
+
+            if (!climbInput && timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
+            {
+                glideInput = true;
+                model.GetComponent<ClaireAnimatorController>().Glide();
 
 
-        }
-        else
-        {
-            glideInput = false;
-            model.GetComponent<ClaireAnimatorController>().StopGlide();
+            }
+            else
+            {
+                glideInput = false;
+                model.GetComponent<ClaireAnimatorController>().StopGlide();
 
+            }
         }
     }
 
@@ -450,6 +471,22 @@ public class ClaireController : MonoBehaviour
             }
             newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Interactable")
+        {
+            inInteractable = true;
+        }
+    }
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.tag == "Interactable")
+        {
+            inInteractable = false;
         }
     }
 }
