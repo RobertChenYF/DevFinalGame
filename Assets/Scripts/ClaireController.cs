@@ -100,9 +100,13 @@ public class ClaireController : MonoBehaviour
     public float glideAdditive; //Added and subtracted to glideDown when glideinput is true
     public float glideDownMax; //The max glideDown can go (the min is 0)
 
-    [Header("SoundSources")]
+    [Header("Audio Sources")]
     public AudioSource aud_flap;
     public AudioSource aud_jump;
+    public GlideAudio aud_Glide1;
+
+    [Header("Audio Bool")]
+    public bool GlideAudioOn;
 
     void Awake()
     {
@@ -165,6 +169,7 @@ public class ClaireController : MonoBehaviour
             timeToGlideTimer = 0;
             gravity = baseGravity;
             terminalVelocity = baseTerminalVelocity;
+            GlideAudioOn = false;
         }
 
 
@@ -180,11 +185,13 @@ public class ClaireController : MonoBehaviour
         if (glideInput)
         {
             GlideInput();
+            GlideAudioOn = true;
         }
         else
         {
             gravity = baseGravity;
             terminalVelocity = baseTerminalVelocity;
+            GlideAudioOn = false;
         }
 
         if (onGround)
@@ -197,6 +204,7 @@ public class ClaireController : MonoBehaviour
             glideInput = false;
              // change cape color to red when on the ground
             extraGlideMS = 0;
+            aud_Glide1.audioOn = false;
         }
 
         if (!cantMove)
@@ -296,14 +304,11 @@ public class ClaireController : MonoBehaviour
             {
                 glideInput = true;
                 model.GetComponent<ClaireAnimatorController>().Glide();
-
-
             }
             else
             {
                 glideInput = false;
                 model.GetComponent<ClaireAnimatorController>().StopGlide();
-
             }
         }
     }
