@@ -137,6 +137,7 @@ Material:
     - Vector1_6AF3C652: 1
     - Vector1_9A64AF1D: 18.85
     - Vector1_A99B69AC: 10
+    - Vector1_DF73E284: 1
     - Vector1_F09BD5D0: 24.92
     - Vector1_FBB1A572: 1
     - _AlphaClip: 0
@@ -157,7 +158,7 @@ Material:
     - _Metallic1: 0
     - _Metallic2: 0
     - _Metallic3: 0
-    - _NumLayersCount: 4
+    - _NumLayersCount: 2
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
