@@ -124,7 +124,7 @@ Material:
     - _Cutoff: 0.5
     - _DstBlend: 0
     - _EnableHeightBlend: 0
-    - _EnableInstancedPerPixelNormal: 1
+    - _EnableInstancedPerPixelNormal: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -135,7 +135,7 @@ Material:
     - _Metallic1: 0
     - _Metallic2: 0
     - _Metallic3: 0
-    - _NumLayersCount: 5
+    - _NumLayersCount: 2
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
