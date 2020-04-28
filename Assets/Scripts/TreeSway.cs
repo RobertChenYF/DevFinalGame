@@ -6,6 +6,8 @@ public class TreeSway : MonoBehaviour
 {
     public Animator animator;
 
+    int timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,10 +16,14 @@ public class TreeSway : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        int RandomNum = Random.Range(1, 3);
-        Debug.Log(RandomNum);
-        animator.SetInteger("swayChoice", RandomNum);
+        timer++;
+        if (timer > 250)
+        {
+            timer = 0;
+            int RandomNum = Random.Range(1, 3);
+            animator.SetInteger("swayChoice", RandomNum);
+        }
     }
 }
