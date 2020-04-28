@@ -44,41 +44,43 @@ public class MassegeControl : MonoBehaviour
     }
 
 
-     void Update()
-     {
-         
-         if( messageCanvas.enabled == true)
-         {
-             if (insideCollider)
-             {
-                 Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-                 textBoxContainer.transform.position = screenPos;
-             }
+    void Update()
+    {
 
-             //massage1.text = textLines[currentLine];
-             
-             
-             if (Input.GetKeyDown(KeyCode.Space) && insideCollider)
-             {
-                 if (currentLine > endLineAt )
-                 {
-                     messageCanvas.enabled = false;
-                     currentLine = 0;
-                     return;
-                 }
-                 
-                 StopAllCoroutines();
-                 fullText = textLines[currentLine];
-                 StartCoroutine(TypeWriter());
-                 currentLine += 1;
-             }
-         }
-         
+        if (messageCanvas.enabled == true)
+        {
+            if (insideCollider)
+            {
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+                textBoxContainer.transform.position = screenPos;
+            }
 
-     }
-     
-        
-     void OnTriggerEnter(Collider other)
+            //massage1.text = textLines[currentLine];
+
+
+            if ((Input.GetButtonDown("Jump")) && insideCollider)
+            {
+                if (currentLine > endLineAt)
+                {
+                    ClaireController.me.cantMove = false;
+                    messageCanvas.enabled = false;
+                    currentLine = 0;
+                    return;
+                }
+
+                ClaireController.me.cantMove = true;
+                StopAllCoroutines();
+                fullText = textLines[currentLine];
+                StartCoroutine(TypeWriter());
+                currentLine += 1;
+            }
+        }
+
+
+    }
+
+
+    void OnTriggerEnter(Collider other)
      {
          Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
          textBoxContainer.transform.position = screenPos;
