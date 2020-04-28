@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8336503260167535200}
   - component: {fileID: 1913215290552012303}
+  - component: {fileID: 4157619640541739558}
   m_Layer: 0
   m_Name: Tree_Spruce
   m_TagString: Untagged
@@ -211,7 +212,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 18.877747
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -287,6 +288,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &4157619640541739558
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5037958237119121523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 12
+  m_Direction: 1
+  m_Center: {x: 0, y: 6, z: 0}
 --- !u!1 &5444086945801978380
 GameObject:
   m_ObjectHideFlags: 0

@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 5926199416001999151}
   - component: {fileID: 4748626768618700059}
   - component: {fileID: 4259588534219167060}
+  - component: {fileID: 6279961297145332612}
   m_Layer: 0
   m_Name: Tree_Birch
   m_TagString: Untagged
@@ -223,7 +224,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 7.923523
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -312,6 +313,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+--- !u!136 &6279961297145332612
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386903327635040292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 12
+  m_Direction: 1
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!1 &3420729686332875355
 GameObject:
   m_ObjectHideFlags: 0
