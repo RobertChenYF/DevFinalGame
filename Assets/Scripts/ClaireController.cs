@@ -98,6 +98,10 @@ public class ClaireController : MonoBehaviour
     public float glideAdditive; //Added and subtracted to glideDown when glideinput is true
     public float glideDownMax; //The max glideDown can go (the min is 0)
 
+    
+    //coin picking
+    public static int coinCounter = 0;
+    
     void Awake()
     {
         me = this;
@@ -321,7 +325,7 @@ public class ClaireController : MonoBehaviour
     {  
         if (!initJump && !(climbInput && climbTimer < climbLimit) && !glideInput) //If you are not jumping
         {
-            Debug.Log("Main Physics is on");
+            //    Debug.Log("Main Physics is on");
             model.GetComponent<ClaireAnimatorController>().StopGlide();
             MainPhysics(); //Regular physics applies
         }
@@ -450,6 +454,17 @@ public class ClaireController : MonoBehaviour
             }
             newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
+        }
+    }
+    
+    
+    //coin picking
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Coin")
+        {
+            coinCounter += Random.Range(1, 10); // adding a random int value to the coin counter
+                
         }
     }
 }

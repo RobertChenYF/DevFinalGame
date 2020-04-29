@@ -90,7 +90,7 @@ public class MassegeControl : MonoBehaviour
                 TurnOnMessage();  // turn on canvas when Claire enters the collider
                 currentLine = 0;
                 fullText = textLines[currentLine];//set in the current text in to the type writer
-                Debug.Log("entered");
+                //Debug.Log("entered");
                 //StartCoroutine(TypeWriter());
                 
          }
@@ -98,7 +98,7 @@ public class MassegeControl : MonoBehaviour
  
     private void TurnOnMessage()
     {
-        Debug.Log("Turning on massage canvas");
+        //Debug.Log("Turning on massage canvas");
         messageCanvas.enabled = true;//function for enable canvas
         
     }
