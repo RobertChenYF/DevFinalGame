@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2bf216af-bdf7-4085-a8ee-3dfa75f6e61e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DevFinalGame/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DevFinalGame/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DevFinalGame/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DevFinalGame/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SoYeonScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SoYeonScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ClaireController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ClaireController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MassegeControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MassegeControl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +26,8 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/MassegeControl.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ClaireAnimatorController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ClaireController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/CoinPicking.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ClaireController.cs" />
       </list>
     </option>
   </component>
@@ -87,6 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588070281076</updated>
       <workItem from="1588070289489" duration="6682000" />
+      <workItem from="1588166907066" duration="305000" />
     </task>
     <servers />
   </component>

@@ -1801,6 +1801,8 @@ MonoBehaviour:
   climbInput: 0
   glideInput: 0
   canClimb: 0
+  inInteractable: 0
+  cantMove: 0
   goldenFeathers: 0
   goldenFeathersMax: 3
   moveSpeed: 0.15
@@ -1844,6 +1846,10 @@ MonoBehaviour:
   modelVert: 0
   glideAdditive: 0
   glideDownMax: 0
+  aud_flap: {fileID: 0}
+  aud_jump: {fileID: 0}
+  aud_Glide1: {fileID: 0}
+  GlideAudioOn: 0
 --- !u!54 &980245456
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1882,7 +1888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980245454}
   m_LocalRotation: {x: -0, y: -0.9292826, z: -0, w: 0.3693696}
-  m_LocalPosition: {x: 568.6, y: 64, z: 472.5}
+  m_LocalPosition: {x: 528.53, y: 64, z: 430.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 285836282}

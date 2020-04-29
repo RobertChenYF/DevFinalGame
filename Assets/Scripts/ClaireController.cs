@@ -206,14 +206,22 @@ public class ClaireController : MonoBehaviour
             glideInput = false;
              // change cape color to red when on the ground
             extraGlideMS = 0;
-            aud_Glide1.audioOn = false;
+            if (aud_Glide1 != null) 
+            {               
+                aud_Glide1.audioOn = false;
+            }
         }
 
-        if (!cantMove)
-        {
-            VerticalMovement();
-            Velocity();
-            ModelRotation();
+        if (!cantMove)
+
+        {
+
+            VerticalMovement();
+
+            Velocity();
+
+            ModelRotation();
+
         }
     }
 
@@ -248,69 +256,132 @@ public class ClaireController : MonoBehaviour
         jumpTimer++;
         climbTimer++;
         initTimer++;
-        timeToGlideTimer++;
-        if (inInteractable) //if there is an interact prompt (talking, reading or picking up)
-        {
-            interactInput = true;
-        }
-        else //else it is related to jumping, climbing and or gliding, so
-        {
-            if (canClimb && goldenFeathers > 0.1f)
-            {
-                climbInput = true;
-                climbTimer = 0;
-                goldenFeathers -= goldenFeathersSub;
-                model.GetComponent<ClaireAnimatorController>().StopGlide();
-                model.GetComponent<ClaireAnimatorController>().Climb();
-            }
-            else
-            {
-                climbInput = false;
-                model.GetComponent<ClaireAnimatorController>().StopClimb();
-            }
-
-            if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
-            {
-                jumpInput = true; //if jumpTimer is less than JumpLimit, and you either are on the ground or have golden feathers, the input is registed as a jump. Hence, jumpInput is true
-                if (initTimer == 1)
-                {
-                    if (goldenFeathers == 1)
-                    {
-                        //run the function that change the color of the cape and cloth
-                        model.GetComponent<ClaireAnimatorController>().ChangeToBlue();
-
-                    }
-                    goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
-                    if (!onGround)
-                    {
-                        aud_flap.pitch = Random.Range(0.85f, 1.15f);
-                        aud_flap.Play();
-                    }
-                    else
-                    {
-                        aud_jump.pitch = Random.Range(0.85f, 1.15f);
-                        aud_jump.Play();
-                    }
-                    model.GetComponent<ClaireAnimatorController>().StopGlide();
-                    model.GetComponent<ClaireAnimatorController>().Jump();
-                    model.GetComponent<ClaireAnimatorController>().StopClimb();
-                }
-
-            }
-            else
-            {
-                jumpInput = false;
-            }
-
-            if (!climbInput && timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
-            {
-                glideInput = true;
-                model.GetComponent<ClaireAnimatorController>().Glide();
-            }
-            else
-            {
-                glideInput = false;
-                model.GetComponent<ClaireAnimatorController>().StopGlide();
+        timeToGlideTimer++;
+
+        if (inInteractable) //if there is an interact prompt (talking, reading or picking up)
+
+        {
+
+            interactInput = true;
+
+        }
+
+        else //else it is related to jumping, climbing and or gliding, so
+
+        {
+
+            if (canClimb && goldenFeathers > 0.1f)
+
+            {
+
+                climbInput = true;
+
+                climbTimer = 0;
+
+                goldenFeathers -= goldenFeathersSub;
+
+                model.GetComponent<ClaireAnimatorController>().StopGlide();
+
+                model.GetComponent<ClaireAnimatorController>().Climb();
+
+            }
+
+            else
+
+            {
+
+                climbInput = false;
+
+                model.GetComponent<ClaireAnimatorController>().StopClimb();
+
+            }
+
+
+
+            if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
+
+            {
+
+                jumpInput = true; //if jumpTimer is less than JumpLimit, and you either are on the ground or have golden feathers, the input is registed as a jump. Hence, jumpInput is true
+
+                if (initTimer == 1)
+
+                {
+
+                    if (goldenFeathers == 1)
+
+                    {
+
+                        //run the function that change the color of the cape and cloth
+
+                        model.GetComponent<ClaireAnimatorController>().ChangeToBlue();
+
+
+
+                    }
+
+                    goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
+
+                    if (!onGround)
+
+                    {
+
+                        aud_flap.pitch = Random.Range(0.85f, 1.15f);
+
+                        aud_flap.Play();
+
+                    }
+
+                    else
+
+                    {
+
+                        aud_jump.pitch = Random.Range(0.85f, 1.15f);
+
+                        aud_jump.Play();
+
+                    }
+
+                    model.GetComponent<ClaireAnimatorController>().StopGlide();
+
+                    model.GetComponent<ClaireAnimatorController>().Jump();
+
+                    model.GetComponent<ClaireAnimatorController>().StopClimb();
+
+                }
+
+
+
+            }
+
+            else
+
+            {
+
+                jumpInput = false;
+
+            }
+
+
+
+            if (!climbInput && timeToGlideTimer > timeToGlideLimit) //If you have been holding A long enough, timeToGlideTimer will be above timeToGlideLimit, thus you can glide
+
+            {
+
+                glideInput = true;
+
+                model.GetComponent<ClaireAnimatorController>().Glide();
+
+            }
+
+            else
+
+            {
+
+                glideInput = false;
+
+                model.GetComponent<ClaireAnimatorController>().StopGlide();
+
             }
         }
     }
@@ -481,27 +552,36 @@ public class ClaireController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.tag == "Interactable")
-        {
-            inInteractable = true;
-        }
-    }
+    void OnTriggerEnter(Collider col)
 
-    void OnTriggerExit(Collider col)
-    {
-        if (col.gameObject.tag == "Interactable")
-        {
-            inInteractable = false;
-        }
-    }
     {
-    private void OnTriggerEnter(Collider other)
-        if (other.gameObject.tag == "Coin")
+
+        if (col.gameObject.tag == "Interactable")
+
+        {
+
+            inInteractable = true;
+
+        }
+        
+        if (col.gameObject.tag == "Coin")
         {
             coinCounter += Random.Range(1, 10); // adding a random int value to the coin counter
-                
         }
+
+    }
+
+    void OnTriggerExit(Collider col)
+
+    {
+
+        if (col.gameObject.tag == "Interactable")
+
+        {
+
+            inInteractable = false;
+
+        }
+
     }
 }
