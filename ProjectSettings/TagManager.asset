@@ -8,6 +8,7 @@ TagManager:
   - Golden_Feather
   - TextInteraction
   - Interactable
+  - Coin
   layers:
   - Default
   - TransparentFX

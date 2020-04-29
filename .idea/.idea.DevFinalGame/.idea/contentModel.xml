@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\GS65\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\GS65\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_DevFinalGame.-330437518.00" t="ExcludeRecursive" />
+    <e p="C:\Users\GS65\Desktop\Spring 2020\Intermediate\Final\DevFinalGame" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="GoldenFeatherScript.cs" t="Include" />
+        <e p="GoldenFeathersTemp.cs" t="Include" />
+        <e p="Scripts" t="Include">
+          <e p="CameraController.cs" t="Include" />
+          <e p="ClaireAnimatorController.cs" t="Include" />
+          <e p="ClaireController.cs" t="Include" />
+          <e p="CoinPicking.cs" t="Include" />
+          <e p="EyeController.cs" t="Include" />
+          <e p="MassegeControl.cs" t="Include" />
+          <e p="ParticleSystemController.cs" t="Include" />
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="Simple Toon Shader" t="Include">
+            <e p="MainLight.hlsl" t="Include" />
+          </e>
+          <e p="ToonComplete.shader" t="Include" />
+        </e>
+        <e p="Text" t="Include">
+          <e p="text1.txt" t="Include" />
+          <e p="text2.txt" t="Include" />
+        </e>
+      </e>
+      <e p="DevFinalGame.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
