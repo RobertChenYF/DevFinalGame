@@ -5,7 +5,10 @@ using UnityEngine;
 public class GoldenFeathersUI : MonoBehaviour
 {
 
-    public GoldenFeather[] goldenFeathers;
+    public SpriteRenderer[] goldenFeathers;
+
+    public Color col_gold;
+    public Color col_dead;
 
 
     // Start is called before the first frame update
@@ -15,40 +18,27 @@ public class GoldenFeathersUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         for (int i = 0; i < goldenFeathers.Length; i++)
         {
             if(ClaireController.me.goldenFeathersMax > i)
             {
-                goldenFeathers[i].dead.color = Color.white;
+                goldenFeathers[i].color = col_dead;
+
+                if (ClaireController.me.goldenFeathers > i + 1)
+                {
+                    goldenFeathers[i].color = col_gold;
+                }
+                else
+                {
+                    goldenFeathers[i].color = Color.Lerp(col_dead, col_gold, ClaireController.me.goldenFeathers - i);
+                }
             }
             else
             {
-                goldenFeathers[i].dead.color = Color.clear;
+                goldenFeathers[i].color = Color.clear;    
             }
-
-            if (ClaireController.me.goldenFeathers < i)
-            {
-                goldenFeathers[i].golden.color = Color.clear;
-            }
-            else if(ClaireController.me.goldenFeathers > i + 1)
-            {
-                goldenFeathers[i].golden.color = Color.white;
-            }
-            else
-            {
-                goldenFeathers[i].golden.color = new Color(1, 1, 1, ClaireController.me.goldenFeathers - i);
-            }
-
-
         }
     }
-}
-
-[System.Serializable]
-public struct GoldenFeather
-{
-    public SpriteRenderer golden;
-    public SpriteRenderer dead;
 }
