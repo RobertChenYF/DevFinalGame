@@ -197,7 +197,7 @@ public class ClaireController : MonoBehaviour
             GlideAudioOn = false;
         }
 
-        if (onGround)
+        if (onGround )
         {         
             if (goldenFeathers != goldenFeathersMax)
             {             
@@ -322,13 +322,12 @@ public class ClaireController : MonoBehaviour
 
 
 
-                    }
-
-                    goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
-
+                    }                
                     if (!onGround)
 
                     {
+                        goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
+
 
                         aud_flap.pitch = Random.Range(0.85f, 1.15f);
 
