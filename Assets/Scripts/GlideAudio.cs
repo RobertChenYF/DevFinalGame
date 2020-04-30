@@ -31,7 +31,7 @@ public class GlideAudio : MonoBehaviour
     void FixedUpdate()
     {
         float totalHoriVelocity = Mathf.Abs(ClaireController.me.velocity.x) + Mathf.Abs(ClaireController.me.velocity.z);
-        Debug.Log(totalHoriVelocity);
+       // Debug.Log(totalHoriVelocity);
 
         float trueAudio = 0;
 

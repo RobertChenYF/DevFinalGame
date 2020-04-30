@@ -23,21 +23,24 @@ public class GoldenFeathersUI : MonoBehaviour
         for (int i = 0; i < goldenFeathers.Length; i++)
         {
             if(ClaireController.me.goldenFeathersMax > i)
+
             {
+                goldenFeathers[i].gameObject.SetActive(true);
                 goldenFeathers[i].color = col_dead;
 
                 if (ClaireController.me.goldenFeathers > i + 1)
                 {
+                    goldenFeathers[i].gameObject.SetActive(true);
                     goldenFeathers[i].color = col_gold;
                 }
                 else
                 {
-                    goldenFeathers[i].color = Color.Lerp(col_dead, col_gold, ClaireController.me.goldenFeathers - i);
+                    goldenFeathers[i].color = new Color(1, 1, 1, ClaireController.me.goldenFeathers - i);
                 }
             }
             else
             {
-                goldenFeathers[i].color = Color.clear;    
+                goldenFeathers[i].gameObject.SetActive(false);
             }
         }
     }

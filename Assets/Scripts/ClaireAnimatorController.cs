@@ -47,7 +47,7 @@ public class ClaireAnimatorController : MonoBehaviour
         if (changeToBlue)
         {
             Color lerpedColor = Color.Lerp(red, blue, colorLerpFloat);
-            CapeMaterial.SetColor("Color_B0294C1D", lerpedColor);
+            CapeMaterial.SetColor("ColorOfCape", lerpedColor);
             colorLerpFloat += Time.deltaTime * colorChangeRate;
             if (colorLerpFloat >= 1)
             {
@@ -58,7 +58,7 @@ public class ClaireAnimatorController : MonoBehaviour
         else if (changeToRed)
         {
             Color lerpedColor = Color.Lerp(blue, red, colorLerpFloat);
-            CapeMaterial.SetColor("Color_B0294C1D", lerpedColor);
+            CapeMaterial.SetColor("ColorOfCape", lerpedColor);
             colorLerpFloat += Time.deltaTime * colorChangeRate;
             if (colorLerpFloat >= 1)
             {
@@ -88,7 +88,7 @@ public class ClaireAnimatorController : MonoBehaviour
 
     public void ChangeToBlue()
     {
-        if (CapeMaterial.GetColor("Color_B0294C1D") != blue)
+        if (CapeMaterial.GetColor("ColorOfCape") != blue)
         {
             changeToBlue = true;
         }
@@ -96,7 +96,7 @@ public class ClaireAnimatorController : MonoBehaviour
 
     public void ChangeToRed()
     {
-        if (CapeMaterial.GetColor("Color_B0294C1D") != red)
+        if (CapeMaterial.GetColor("ColorOfCape") != red)
         {
             changeToRed = true;
         }

@@ -603,7 +603,7 @@ MonoBehaviour:
   animator: {fileID: 7530717744163198509}
   red: {r: 0.8490566, g: 0.07609467, b: 0.08410459, a: 0}
   blue: {r: 0.3019608, g: 0.47450984, b: 0.7411765, a: 0}
-  CapeMaterial: {fileID: 2100000, guid: 0cd30be131a505341bb5b742cdab1e9c, type: 2}
+  CapeMaterial: {fileID: 2100000, guid: 72386477187a5384487d15fd32b7b889, type: 2}
   colorChangeRate: 5
   glideTrail1: {fileID: 7530717744309103653}
   glideTrail2: {fileID: 7530717744551286689}

@@ -80,9 +80,9 @@ public class ClaireController : MonoBehaviour
     public RaycastHit floorHit;
     public Ray climbChecker;
     public RaycastHit climbHit;
+    Vector3 newUp;
 
-
-    [Header("TimersAndTheirLimits")]
+   [Header("TimersAndTheirLimits")]
     public int jumpTimer; //A timer that tracks when verticalSpeed should be set to jumpSpeed
     public int jumpLimit; //If A is held and jumpTimer is below limit, verticalSpeed is set to jumpSpeed. If jumpTimer is above jumpLimit, this is not true.
     public int initTimer; //A simple timer that decreases goldenFeathers by 1 if you jump
@@ -113,6 +113,7 @@ public class ClaireController : MonoBehaviour
     void Awake()
     {
         me = this;
+        newUp = new Vector3(0, 1, 0);
     }
 
     void Start()
@@ -201,8 +202,10 @@ public class ClaireController : MonoBehaviour
             if (goldenFeathers != goldenFeathersMax)
             {             
                 model.GetComponent<ClaireAnimatorController>().ChangeToRed();
-                goldenFeathers = goldenFeathersMax; //Currently sets goldenFeaters back to its max if youre on the ground. Can be adjusted to slowly increase goldenFeathers as your on the ground
+                 //Currently sets goldenFeaters back to its max if youre on the ground. Can be adjusted to slowly increase goldenFeathers as your on the ground
             }
+            goldenFeathers += Time.deltaTime*4;
+            goldenFeathers = Mathf.Clamp(goldenFeathers,0,goldenFeathersMax);
             glideInput = false;
              // change cape color to red when on the ground
             extraGlideMS = 0;
@@ -536,10 +539,24 @@ public class ClaireController : MonoBehaviour
             {
                 modelVert = 0;
             }
+            if (Mathf.Abs(velocity.x) > 0.01f || Mathf.Abs(velocity.z) > 0.01f)
+            {
+                newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+            }
+            else
+            {
+                Debug.Log("no rotate" + model.transform.rotation.eulerAngles.y);
+                newRotation = Quaternion.Euler(new Vector3(0, model.transform.rotation.eulerAngles.y, 0));
+            }
 
-            newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+
+
+
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, rotateSpeed);
+
+
         }
+
         else
         {
             modelVert -= glideAdditive;
@@ -547,8 +564,13 @@ public class ClaireController : MonoBehaviour
             {
                 modelVert = glideDownMax;
             }
-            newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z));
+           // newUp = Quaternion.AngleAxis(30, Vector3.up) * newUp; 
+            newRotation = Quaternion.LookRotation(new Vector3(velocity.x, modelVert, velocity.z), newUp.normalized);
+
+
             model.transform.rotation = Quaternion.Slerp(model.transform.rotation, newRotation, glideRotateSpeed);
+            
+           
         }
     }
 
