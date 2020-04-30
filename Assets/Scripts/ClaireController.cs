@@ -101,9 +101,9 @@ public class ClaireController : MonoBehaviour
     public float glideDownMax; //The max glideDown can go (the min is 0)
 
     [Header("Audio Sources")]
-    public AudioSource aud_flap;
-    public AudioSource aud_jump;
-    public GlideAudio aud_Glide1;
+    //public AudioSource aud_flap;
+    //public AudioSource aud_jump;
+    //public GlideAudio aud_Glide1;
 
     [Header("Audio Bool")]
     public bool GlideAudioOn;
@@ -204,7 +204,7 @@ public class ClaireController : MonoBehaviour
             glideInput = false;
              // change cape color to red when on the ground
             extraGlideMS = 0;
-            aud_Glide1.audioOn = false;
+            //aud_Glide1.audioOn = false;
         }
 
         if (!cantMove)
@@ -281,13 +281,13 @@ public class ClaireController : MonoBehaviour
                     goldenFeathers -= 1; //If you do jump, then on the first frame of the jump goldenFeathers is decreased by 1
                     if (!onGround)
                     {
-                        aud_flap.pitch = Random.Range(0.85f, 1.15f);
-                        aud_flap.Play();
+                        //aud_flap.pitch = Random.Range(0.85f, 1.15f);
+                        //aud_flap.Play();
                     }
                     else
                     {
-                        aud_jump.pitch = Random.Range(0.85f, 1.15f);
-                        aud_jump.Play();
+                        //aud_jump.pitch = Random.Range(0.85f, 1.15f);
+                        //aud_jump.Play();
                     }
                     model.GetComponent<ClaireAnimatorController>().StopGlide();
                     model.GetComponent<ClaireAnimatorController>().Jump();
