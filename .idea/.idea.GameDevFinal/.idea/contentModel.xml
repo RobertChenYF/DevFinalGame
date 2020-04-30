@@ -4,6 +4,7 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="GoldenFeathersUI.cs" t="Include" />
         <e p="MA_Shaders" t="Include">
           <e p="UnlitTerrain4T" t="Include">
             <e p="MA_UnlitTerrain4T.shader" t="Include" />
@@ -14,6 +15,7 @@
           <e p="CameraTrigger.cs" t="Include" />
           <e p="ClaireAnimatorController.cs" t="Include" />
           <e p="ClaireController.cs" t="Include" />
+          <e p="CoinPicking.cs" t="Include" />
           <e p="EyeController.cs" t="Include" />
           <e p="GlideAudio.cs" t="Include" />
           <e p="GoldenFeatherScript.cs" t="Include" />
@@ -31,6 +33,7 @@
           <e p="ToonComplete.shader" t="Include" />
         </e>
         <e p="Text" t="Include">
+          <e p="GoldenFeatherText.txt" t="Include" />
           <e p="text1.txt" t="Include" />
           <e p="text2.txt" t="Include" />
         </e>

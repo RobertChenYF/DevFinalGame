@@ -1051,12 +1051,15 @@ MonoBehaviour:
   textBoxContainer: {fileID: 1595464446}
   massage1: {fileID: 222434866}
   textFile1: {fileID: 4900000, guid: 4cc249b340bb84f119cffb668dbd55d8, type: 3}
+  goldenFeatherText: {fileID: 4900000, guid: eada10bd8d1e346599cd5a83ad014bef, type: 3}
   textLines: []
   currentLine: 0
   endLineAt: 0
   fullText: 
   currentText: 
   insideCollider: 0
+  thisIsFeatherTrader: 0
+  coinCounts: 0
 --- !u!135 &752933176
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1279,6 +1282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SignPost1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b4d178b78ff8943a687d6ce1c4acaebe,
+        type: 3}
+      propertyPath: m_TagString
+      value: FeatherTrader
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4d178b78ff8943a687d6ce1c4acaebe, type: 3}
 --- !u!1 &927377963 stripped
@@ -1316,12 +1324,15 @@ MonoBehaviour:
   textBoxContainer: {fileID: 1595464446}
   massage1: {fileID: 222434866}
   textFile1: {fileID: 4900000, guid: b199999cbed8f4a439c8c7fee6f9e28b, type: 3}
+  goldenFeatherText: {fileID: 4900000, guid: eada10bd8d1e346599cd5a83ad014bef, type: 3}
   textLines: []
   currentLine: 0
   endLineAt: 0
   fullText: 
   currentText: 
   insideCollider: 0
+  thisIsFeatherTrader: 0
+  coinCounts: 30
 --- !u!1 &930946842
 GameObject:
   m_ObjectHideFlags: 0
