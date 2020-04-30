@@ -111,6 +111,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: onGround
+    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Climb
     m_EventTreshold: 0
@@ -1253,7 +1256,7 @@ AnimatorStateMachine:
     m_Position: {x: 730, y: 570, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5685043232730241196}
-    m_Position: {x: 340, y: 680, z: 0}
+    m_Position: {x: 350, y: 670, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3005637074567686960}
     m_Position: {x: 790, y: 750, z: 0}
@@ -1262,7 +1265,7 @@ AnimatorStateMachine:
     m_Position: {x: 1360, y: 650, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8021219368384082392}
-    m_Position: {x: 180, y: 1010, z: 0}
+    m_Position: {x: 160, y: 1060, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

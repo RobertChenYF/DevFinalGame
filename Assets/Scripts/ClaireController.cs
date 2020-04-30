@@ -209,6 +209,7 @@ public class ClaireController : MonoBehaviour
             glideInput = false;
              // change cape color to red when on the ground
             extraGlideMS = 0;
+            model.GetComponent<ClaireAnimatorController>().StopClimb();
             if (aud_Glide1 != null) 
             {               
                 aud_Glide1.audioOn = false;
@@ -301,7 +302,7 @@ public class ClaireController : MonoBehaviour
 
 
 
-            if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround)) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
+            if (!canClimb && jumpTimer < jumpLimit && (goldenFeathers > 0 || onGround) && !cantMove) //Currently you need a goldenFeather to jump at all, but being close to the ground sets it back to Max. Will need to add a check for being on the ground, thus not requiring golden feather
 
             {
 

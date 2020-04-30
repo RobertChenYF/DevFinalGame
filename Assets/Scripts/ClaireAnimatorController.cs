@@ -15,7 +15,7 @@ public class ClaireAnimatorController : MonoBehaviour
     public TrailRenderer glideTrail1;
     public TrailRenderer glideTrail2;
     public Shader ColorToon;
-    
+    private float inAirTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,20 @@ public class ClaireAnimatorController : MonoBehaviour
     void Update()
     {
         animator.SetFloat("Speed", ClaireController.ClaireSpeed);
-        animator.SetBool("onGround", ClaireController.onGround);
+        if (!ClaireController.onGround)
+        {
+            inAirTimer += Time.deltaTime;
+        }
+        else
+        {
+            inAirTimer = 0;
+            animator.SetBool("onGround", true);
+        }
+        if (inAirTimer > 0.2f)
+        {
+            animator.SetBool("onGround", false);
+        }
+        
         //change animation speed based on control
         if (ClaireController.ClaireSpeed > 0 && ClaireController.ClaireSpeed < 0.5f)
         {
