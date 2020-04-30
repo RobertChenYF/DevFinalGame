@@ -75,7 +75,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - ColorOfCape: {r: 0.81822085, g: 0.09855037, b: 0.12113885, a: 0}
+    - ColorOfCape: {r: 0.8347049, g: 0.086546116, b: 0.101341255, a: 1}
     - Color_28180829: {r: 0, g: 0, b: 0, a: 1}
     - Color_57D43A16: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0}
     - Color_F689E8B9: {r: 1, g: 1, b: 1, a: 1}
