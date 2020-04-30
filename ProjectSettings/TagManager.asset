@@ -9,6 +9,7 @@ TagManager:
   - TextInteraction
   - Interactable
   - Coin
+  - FeatherTrader
   layers:
   - Default
   - TransparentFX

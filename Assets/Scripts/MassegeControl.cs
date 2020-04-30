@@ -17,7 +17,8 @@ public class MassegeControl : MonoBehaviour
     //public GameObject NPC;
     public Text massage1;// the text object
 
-    public TextAsset textFile1;//the content of the text
+    public TextAsset textFile1;
+    public TextAsset goldenFeatherText;//the content of the text
     public string[] textLines;
 
     public int currentLine;//the line counter
@@ -28,24 +29,40 @@ public class MassegeControl : MonoBehaviour
     public string currentText;
 
     public bool insideCollider;
+    public bool thisIsFeatherTrader;
+
+
+    public int coinCounts;
     
 
     void Start()
     {
         messageCanvas.enabled = false;//turn off canvas at the beginning
+        
+        if (this.tag == "FeatherTrader")
+        {
+            thisIsFeatherTrader = true;
+        }
+        else
+        {
+            thisIsFeatherTrader = false;
+        }
+        
         textLines = (textFile1.text.Split('\n'));//splitting the text file in to lines
-
         if (endLineAt == 0)
         {
             endLineAt = textLines.Length - 1; // set the number for the last line by how many lines the file has
         }
-        
         
     }
 
 
     void Update()
     {
+        if (thisIsFeatherTrader == true && coinCounts > 20f)
+        {
+            textLines = (goldenFeatherText.text.Split('\n'));//splitting the text file in to lines
+        }
 
         if (messageCanvas.enabled == true)
         {
