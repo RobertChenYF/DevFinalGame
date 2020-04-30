@@ -4,15 +4,25 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="GoldenFeatherScript.cs" t="Include" />
-        <e p="GoldenFeathersTemp.cs" t="Include" />
+        <e p="MA_Shaders" t="Include">
+          <e p="UnlitTerrain4T" t="Include">
+            <e p="MA_UnlitTerrain4T.shader" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="CameraController.cs" t="Include" />
+          <e p="CameraTrigger.cs" t="Include" />
           <e p="ClaireAnimatorController.cs" t="Include" />
           <e p="ClaireController.cs" t="Include" />
           <e p="EyeController.cs" t="Include" />
+          <e p="GlideAudio.cs" t="Include" />
+          <e p="GoldenFeatherScript.cs" t="Include" />
+          <e p="GoldenFeathersTemp.cs" t="Include" />
           <e p="MassegeControl.cs" t="Include" />
           <e p="ParticleSystemController.cs" t="Include" />
+          <e p="ParticleSystemController_Finn.cs" t="Include" />
+          <e p="PauseMenu.cs" t="Include" />
+          <e p="TreeSway.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
           <e p="Simple Toon Shader" t="Include">

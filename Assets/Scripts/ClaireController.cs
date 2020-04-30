@@ -101,9 +101,9 @@ public class ClaireController : MonoBehaviour
     public float glideDownMax; //The max glideDown can go (the min is 0)
 
     [Header("Audio Sources")]
-    public AudioSource aud_flap;
-    public AudioSource aud_jump;
-    public GlideAudio aud_Glide1;
+    //public AudioSource aud_flap;
+    //public AudioSource aud_jump;
+    //public GlideAudio aud_Glide1;
 
     [Header("Audio Bool")]
     public bool GlideAudioOn;
