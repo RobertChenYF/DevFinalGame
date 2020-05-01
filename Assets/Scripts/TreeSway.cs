@@ -12,6 +12,7 @@ public class TreeSway : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        timer = 250;
         
     }
 
