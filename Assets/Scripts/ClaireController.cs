@@ -463,7 +463,7 @@ public class ClaireController : MonoBehaviour
     void ClimbPhysics()
     {
         verticalSpeed = 0;
-        Vector3 mainMotion = climbHit.point + (transform.up * 0.1f) + (horiMotionDir.transform.forward * -disFromWall);
+        Vector3 mainMotion = climbHit.point + (transform.up * 0.25f) + (horiMotionDir.transform.forward * -disFromWall);
         Vector3 extraMotion = horiMotionDir.transform.forward * 0.1f;
         rb.MovePosition(mainMotion + extraMotion);
     }
