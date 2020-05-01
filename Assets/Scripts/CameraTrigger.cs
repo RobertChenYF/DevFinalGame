@@ -22,6 +22,7 @@ public class CameraTrigger : MonoBehaviour
     {
         if (other.gameObject.name == "Claire")
         {
+            CameraAnimator.SetTrigger("Change Cam");
             CameraAnimator.SetInteger("CameraState",triggerState );
         }
     }

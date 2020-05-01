@@ -63,7 +63,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cd30be131a505341bb5b742cdab1e9c, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15893,7 +15893,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cd30be131a505341bb5b742cdab1e9c, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22197,6 +22197,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 748748645750174535, guid: e594238210706264aa7f33d69461fae7,
+        type: 3}
+      propertyPath: m_Name
+      value: playerBody
       objectReference: {fileID: 0}
     - target: {fileID: 1066910053003865102, guid: e594238210706264aa7f33d69461fae7,
         type: 3}
