@@ -60,7 +60,7 @@ public class GlideAudio : MonoBehaviour
 
         aS.volume = Mathf.Lerp(aS.volume, trueAudio, 0.0075f);
 
-        if (aS.volume < 0.01 && trueAudio < 0.01)
+        if (aS.volume < 0.005 && trueAudio < 0.005)
         {
             aS.volume = 0;
         }

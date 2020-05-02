@@ -11,6 +11,8 @@ public class CoinPicking : MonoBehaviour
     public Canvas coinCanvas; //the canvas for the coin system
     public Text coinCounterText;
     private static int coinScore; //set up to get a coin counter from claire controller script
+
+    public AudioSource aud_CoinPickUp;
     
     void Start()
     {
@@ -48,6 +50,7 @@ public class CoinPicking : MonoBehaviour
         if (other.gameObject.tag == "Claire")
         {
             TurnOffCoinMessage(); // turn off canvas when Claire enters the collider
+            aud_CoinPickUp.Play();
             Destroy(gameObject);
         }
     }
