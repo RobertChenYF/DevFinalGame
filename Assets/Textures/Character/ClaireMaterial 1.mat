@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ClaireMaterial 1
-  m_Shader: {fileID: -6465566751694194690, guid: 4aa46d33b0afb5e49bb0703218e42e0e,
+  m_Shader: {fileID: -6465566751694194690, guid: de127fc26771601498a5f414a538dbd6,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_24F8268:
+        m_Texture: {fileID: 2800000, guid: 9d89af87615207b499f99dd70c8dbaa0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_BF2ED6A:
         m_Texture: {fileID: 2800000, guid: 9d89af87615207b499f99dd70c8dbaa0, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -52,11 +56,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_AF597FBF_Out_0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_38BD3441: 0.388
+    - Vector1_38BD3441: 0.352
+    - Vector1_4ED9A1DC: 3
+    - Vector1_8620A13F: 0.205
+    - Vector1_988E9A44: -0.192
+    - Vector1_CDB6D58C: 0
     - Vector1_CF8B0D8D: 3
     - Vector1_ED5ABFD9: 0
-    - Vector1_F3F6B787: 0.04
+    - Vector1_F3F6B787: -0.33
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -80,8 +92,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_28180829: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
-    - Color_57D43A16: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0}
+    - Color_28180829: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+    - Color_57D43A16: {r: 0, g: 0, b: 0, a: 0}
+    - Color_C5EF6E39: {r: 0, g: 0, b: 0, a: 0}
+    - Color_DBCD1D87: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+    - Color_F5D1A592: {r: 1, g: 1, b: 1, a: 1}
     - Color_F689E8B9: {r: 1, g: 1, b: 1, a: 1}
     - _AmbientColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
