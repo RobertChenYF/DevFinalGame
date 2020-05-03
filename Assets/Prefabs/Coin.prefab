@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5205639684802113449}
   - component: {fileID: 5205639684802113462}
   m_Layer: 0
-  m_Name: sample coin 1
+  m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5205639684802113463}
-  m_LocalRotation: {x: 0.99146205, y: -0, z: -0, w: -0.13039578}
-  m_LocalPosition: {x: 588.1786, y: 5.08, z: 155.28436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.53334, y: 0.034726296, z: 0.53334}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 194.985, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5205639684802113451
 MeshFilter:
   m_ObjectHideFlags: 0

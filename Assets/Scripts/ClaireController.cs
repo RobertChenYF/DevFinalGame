@@ -592,7 +592,8 @@ public class ClaireController : MonoBehaviour
         {
             aud_pickup_coin.pitch = Random.Range(0.8f, 1.2f);
             aud_pickup_coin.Play();
-            coinCounter += Random.Range(1, 10); // adding a random int value to the coin counter     
+            //coinCounter += Random.Range(1, 10); // adding a random int value to the coin counter    
+            coinCounter++;
         }
 
         if(col.gameObject.tag == "Golden_Feather")
