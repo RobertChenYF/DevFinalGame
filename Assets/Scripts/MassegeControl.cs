@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class MassegeControl : MonoBehaviour
 {
+    RectTransform Canvas;
+    RectTransform textBoxUI;
 
     public Canvas messageCanvas;// The canvas for all massage text
     public GameObject textBoxContainer;//Inside canvas, holds the text box, set a maximum size for the text box
@@ -37,6 +39,8 @@ public class MassegeControl : MonoBehaviour
 
     void Start()
     {
+        textBoxUI = textBoxContainer.GetComponent<RectTransform>();
+        Canvas = messageCanvas.GetComponent<RectTransform>();
         messageCanvas.enabled = false;//turn off canvas at the beginning
         
         if (this.tag == "FeatherTrader")
@@ -68,8 +72,16 @@ public class MassegeControl : MonoBehaviour
         {
             if (insideCollider)
             {
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-                textBoxContainer.transform.position = screenPos;
+                // Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+                //  textBoxContainer.transform.position = screenPos;
+
+                Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+                Vector2 WorldObject_ScreenPosition = new Vector2(
+                ((ViewportPosition.x * Canvas.sizeDelta.x) - (Canvas.sizeDelta.x * 0.5f)),
+                ((ViewportPosition.y * Canvas.sizeDelta.y) - (Canvas.sizeDelta.y * 0.5f))); //fix the UI problem code credit to unity forum
+
+                //now you can set the position of the ui element
+                textBoxUI.anchoredPosition = WorldObject_ScreenPosition;
             }
 
             //massage1.text = textLines[currentLine];
