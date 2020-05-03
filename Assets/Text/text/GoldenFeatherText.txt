@@ -1,0 +1,4 @@
+﻿hi this is the golden feather trader
+...
+it seems like you have enough money with you!
+thank you, this is the feather for you.
