@@ -10,7 +10,7 @@ public class CoinPicking : MonoBehaviour
 
     public Canvas coinCanvas; //the canvas for the coin system
     public Text coinCounterText;
-    private static int coinScore; //set up to get a coin counter from claire controller script
+    public static int coinScore; //set up to get a coin counter from claire controller script
     
     void Start()
     {
