@@ -70,7 +70,7 @@ public class MassegeControl : MonoBehaviour
     void Update()
     {
         Debug.Log(ClaireController.coinCounter);
-        if (thisIsFeatherTrader == true && ClaireController.coinCounter >= 20)
+        if (thisIsFeatherTrader == true && ClaireController.coinCounter >= 50)
         {
             textLines = (goldenFeatherText.text.Split('\n'));//splitting the text file in to lines
             endLineAt = textLines.Length - 1; // set the number for the last line by how many lines the file has
@@ -180,7 +180,7 @@ public class MassegeControl : MonoBehaviour
         if(!featherIsCreated)
         {
             Instantiate(feather,featherSpawnlocation.position,Quaternion.identity);
-            ClaireController.coinCounter -= 20;
+            ClaireController.coinCounter -= 50;
             featherIsCreated = true;
         }
     }
