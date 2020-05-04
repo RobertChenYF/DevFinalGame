@@ -34,6 +34,7 @@ public class MassegeControl : MonoBehaviour
     public bool thisIsFeatherTrader;
     private bool featherIsCreated;
 
+    public Transform featherSpawnlocation;
     public GameObject feather;
     
     
@@ -68,13 +69,17 @@ public class MassegeControl : MonoBehaviour
 
     void Update()
     {
-        if (thisIsFeatherTrader == true && CoinPicking.coinScore > 20f)
+        Debug.Log(ClaireController.coinCounter);
+        if (thisIsFeatherTrader == true && ClaireController.coinCounter >= 20)
         {
             textLines = (goldenFeatherText.text.Split('\n'));//splitting the text file in to lines
             endLineAt = textLines.Length - 1; // set the number for the last line by how many lines the file has
             if (currentLine == endLineAt + 1)
             {
-                BuyFeather();
+                Instantiate(feather,featherSpawnlocation.position,Quaternion.identity);
+                    ClaireController.coinCounter -= 20;
+                    //featherIsCreated = true;
+                    //BuyFeather();
             }
         }
 
@@ -174,8 +179,8 @@ public class MassegeControl : MonoBehaviour
     {
         if(!featherIsCreated)
         {
-            Instantiate(feather,new Vector3(526f, 7f, 197f),Quaternion.identity);
-            CoinPicking.coinScore =- 20;
+            Instantiate(feather,featherSpawnlocation.position,Quaternion.identity);
+            ClaireController.coinCounter -= 20;
             featherIsCreated = true;
         }
     }

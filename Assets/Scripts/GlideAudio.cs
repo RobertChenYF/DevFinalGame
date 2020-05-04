@@ -40,7 +40,7 @@ public class GlideAudio : MonoBehaviour
             delayTimer++;
             if (delayTimer > delayLimit)
             {
-                trueAudio = audioVol * totalHoriVelocity / 0.4f;
+                trueAudio = audioVol * totalHoriVelocity / 0.3f;
             }
         }
 
@@ -60,7 +60,7 @@ public class GlideAudio : MonoBehaviour
 
         aS.volume = Mathf.Lerp(aS.volume, trueAudio, 0.0075f);
 
-        if (aS.volume < 0.01 && trueAudio < 0.01)
+        if (aS.volume < 0.001 && trueAudio < 0.001)
         {
             aS.volume = 0;
         }
