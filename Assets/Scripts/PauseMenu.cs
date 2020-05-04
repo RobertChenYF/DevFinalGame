@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused = false;
-    public GameObject pauseMuneUI;
+    public GameObject pauseMenuUI;
     public GameObject coinPanel;
     public Text coinCount;
-    public int coinNum = 4;
+    //public int coinNum = 4;
     
     void Update()
     {
@@ -28,16 +28,17 @@ public class PauseMenu : MonoBehaviour
 
     public void Continue()
     {
-        pauseMuneUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
     
     private void Pause()
     {
-        pauseMuneUI.SetActive(true);
+        pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
+        ShowCoins();
         
     }
 
@@ -49,7 +50,7 @@ public class PauseMenu : MonoBehaviour
     
     public void ShowCoins()
     {
-        coinCount.text = "Coin: " + coinNum;
+        coinCount.text = "Coin: " + CoinPicking.coinScore;
         coinPanel.SetActive(true);
     }
 
